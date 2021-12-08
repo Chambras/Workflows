@@ -3,7 +3,7 @@ name: Terraform-Azure
 on:
   workflow_call:
     inputs:
-      ResourceID:
+      outputResourceID:
         description: The Azure Resource ID
         type: string
       destroy-environment:
@@ -44,7 +44,7 @@ on:
         required: true
     outputs:
       resourceID:
-        description: "Resource ID."
+        description: "Resource ID to output."
         value: ${{ jobs.terraform.outputs.resourceID }}
 
 jobs:
@@ -141,7 +141,7 @@ jobs:
 
     - name: Terraform Output
       id: outputResourceID
-      run: terraform output ${{ inputs.ResourceID }}
+      run: terraform output ${{ inputs.outputResourceID }}
 
     - name: Terraform Destroy
       id: destroy
