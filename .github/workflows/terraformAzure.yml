@@ -3,6 +3,9 @@ name: Terraform-Azure
 on:
   workflow_call:
     inputs:
+      ResourceID:
+        description: The Azure Resource ID
+        type: string
       destroy-environment:
         description: Destroy the environment after the workflow is finished.
         type: boolean
@@ -39,6 +42,10 @@ on:
       ARM_TENANT_ID:
         description: Azure tenant ID.
         required: true
+    outputs:
+      resourceID:
+        description: "Resource ID."
+        value: ${{ jobs.terraform.outputs.resourceID }}
 
 jobs:
   terraform:
@@ -50,6 +57,9 @@ jobs:
         shell: bash
 
     environment: ${{ inputs.environment }}
+
+    outputs:
+      resourceID: ${{ steps.outputResourceID.outputs.stdout }}
 
     env:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
@@ -135,3 +145,7 @@ jobs:
       # if: ${{ inputs.environment }} == Dev
       if: ${{ inputs.destroy-environment }}
       run: terraform destroy -auto-approve
+
+    - name: Terraform Output
+      id: outputResourceID
+      run: terraform output ${{ inputs.ResourceID }}
