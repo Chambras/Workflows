@@ -139,13 +139,13 @@ jobs:
       id: debug
       run: echo ${{ inputs.environment }}
 
+    - name: Terraform Output
+      id: outputResourceID
+      run: terraform output ${{ inputs.ResourceID }}
+
     - name: Terraform Destroy
       id: destroy
       # for some reason this doesn't work. It only works with a boolean value
       # if: ${{ inputs.environment }} == Dev
       if: ${{ inputs.destroy-environment }}
       run: terraform destroy -auto-approve
-
-    - name: Terraform Output
-      id: outputResourceID
-      run: terraform output ${{ inputs.ResourceID }}
