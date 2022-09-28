@@ -6,7 +6,7 @@ on:
       tflint-version:
         description: tflint version to use.
         type: string
-        default: 0.33.0
+        default: 0.41.0
       project-folder:
         description: The folder containing the terraform project.
         type: string
@@ -23,15 +23,15 @@ jobs:
      # Checkout the repository to the GitHub Actions runner
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       name: Cache plugin dir
       with:
         path: ~/.tflint.d/plugins
         key: tflint-${{ hashFiles('.tflint.hcl') }}
 
-    - uses: terraform-linters/setup-tflint@v1
+    - uses: terraform-linters/setup-tflint@v2
       name: Setup TFLint
       with:
         tflint_version: v${{ inputs.tflint-version }}
