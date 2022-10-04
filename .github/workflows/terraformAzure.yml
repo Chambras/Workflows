@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       outputResourceID:
-        description: The Azure Resource ID
+        description: The Azure Resource ID to output once the deployment is complete.
         type: string
       destroy-environment:
         description: Destroy the environment after the workflow is finished.
