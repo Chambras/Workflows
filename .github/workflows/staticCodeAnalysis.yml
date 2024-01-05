@@ -6,7 +6,7 @@ on:
       tflint-version:
         description: tflint version to use.
         type: string
-        default: 0.41.0
+        default: 0.50.0
       project-folder:
         description: The folder containing the terraform project.
         type: string
