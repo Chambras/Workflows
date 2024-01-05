@@ -20,27 +20,27 @@ jobs:
       run:
         working-directory: ${{ inputs.project-folder }}
 
-     # Checkout the repository to the GitHub Actions runner
+      # Checkout the repository to the GitHub Actions runner
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - uses: actions/cache@v3
-      name: Cache plugin dir
-      with:
-        path: ~/.tflint.d/plugins
-        key: tflint-${{ hashFiles('.tflint.hcl') }}
+      - uses: actions/cache@v3
+        name: Cache plugin dir
+        with:
+          path: ~/.tflint.d/plugins
+          key: tflint-${{ hashFiles('.tflint.hcl') }}
 
-    - uses: terraform-linters/setup-tflint@v2
-      name: Setup TFLint
-      with:
-        tflint_version: v${{ inputs.tflint-version }}
+      - uses: terraform-linters/setup-tflint@v4
+        name: Setup TFLint
+        with:
+          tflint_version: v${{ inputs.tflint-version }}
 
-    - name: Show version
-      run: tflint --version
+      - name: Show version
+        run: tflint --version
 
-    - name: Init TFLint
-      run: tflint --init
+      - name: Init TFLint
+        run: tflint --init
 
-    - name: Run TFLint
-      run: tflint -f compact
+      - name: Run TFLint
+        run: tflint -f compact
